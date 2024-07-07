@@ -1,0 +1,17 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<div id="main" class="product-list">
+<h1>WCoinStore</h1>
+{% for storeitem in storeitems %}
+<div class="item">
+<a href="{{ storeitem.get_absolute_url }}">
+    <img src="{% if storeitem.picture %}{{ storeitem.picture.url }}{%else %}{% static 'img/no_image.png' %}{% endif %}">
+</a>
+<a href="{{ storeitem.get_absolute_url }}">{{ storeitem.name }}</a>
+<br>
+${{ storeitem.points_cost }}
+</div>
+{% endfor %}
+</div>
+{% endblock %}

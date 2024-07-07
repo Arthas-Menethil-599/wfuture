@@ -1,0 +1,59 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="application-section">
+    <section class="application-listings">   
+        {% for item in page_obj %}
+            <div class="application-item">
+                <div class="application-details">
+                    <a href="{% url 'wfutureAPI:user-profile' id=item.volunteer.user.id %}" class="volunteership-title">{{ item.volunteer.name }}</a>
+                    <div class="application-status-form">
+                        <form method="post" action="{% url 'wfutureAPI:volunteership-applicants' id=item.volunteership.id %}" id="statusForm">
+                            {% csrf_token %}
+                            <input type="hidden" name="application_id" value="{{ item.id }}">
+                            <div class="wrapper">
+                                <div class="option">
+                                    <input id="pending" type="radio" name="status" value="pending" class="input" {% if item.status == "pending" %}checked{% endif %} onchange="this.form.submit()">
+                                    <label for="pending" class="btn">
+                                        <span class="span">Pending</span>
+                                    </label>
+                                </div>
+                                <div class="option">
+                                    <input id="rejected" type="radio" name="status" value="rejected" class="input" {% if item.status == "rejected" %}checked{% endif %} onchange="this.form.submit()">
+                                    <label for="rejected" class="btn">
+                                        <span class="span">Rejected</span>
+                                    </label>
+                                </div>
+                                <div class="option">
+                                    <input id="approved" type="radio" name="status" value="approved" class="input" {% if item.status == "approved" %}checked{% endif %} onchange="this.form.submit()">
+                                    <label for="approved" class="btn">
+                                        <span class="span">Approved</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+    </section>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="first-page">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="prev-page">Previous</a>
+            {% endif %}
+    
+            <span class="current-page">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="next-page">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="last-page">Last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</section>
+{% endblock %}

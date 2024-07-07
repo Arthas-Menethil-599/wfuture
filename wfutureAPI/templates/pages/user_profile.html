@@ -1,0 +1,48 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+    <section class="user_profile">
+        <div class="profile-container">
+            <div class="profile-header">
+              <div class="profile-avatar">
+                <img src="{% if volunteer.avatar %} {{volunteer.avatar.url}} {% else %} https://via.placeholder.com/150 {% endif %}"alt="User Avatar">
+              </div>
+              <div class="profile-info">
+                <h1>{{volunteer.name}} {{volunteer.surname}}</h1>
+                <p>Contact: {{volunteer.phone_number}}</p>
+                <p>Member since: {{volunteer.created_at|date}}</p>
+              </div>
+            </div>
+            
+            <div class="profile-content">
+              <div class="bio-section">
+                <h2>About Me</h2>
+                <p>{{volunteer.description}}</p>
+              </div>
+          
+              <div class="skills-section">
+                <h2>Skills</h2>
+                <div class="skills">
+                  {% for skill in skills%}
+                    <p>{{skill.name}}</p>
+                  {% endfor %}
+                </div>
+              </div>
+              {% if user.volunteer == volunteer %}
+              <div class="settings-section">
+                <h2>Settings</h2>
+                <div class="settings-subsection">
+                  <a class="btn-settings" href="{% url 'wfutureAPI:volunteer-volunteerships-list'%}">My volunteerships</a>
+                  <a class="btn-settings" href="{% url 'wfutureAPI:my-applications'%}">My applications</a>
+                  <a href="{% url 'wfutureAPI:my-certificates' %}" class="btn-settings">My certificates</a>
+                  <a class="btn-settings" href="{% url 'wfutureAPI:my-reviews' %}" >Reviews</a>
+                  <a class="btn-settings">Edit Profile</a>
+                  <a class="btn-settings">Change Password</a>
+                </div>
+            </div>
+            {% endif %}
+            </div>
+          </div>
+          
+    </section> 
+{% endblock %}

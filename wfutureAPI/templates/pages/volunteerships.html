@@ -1,0 +1,60 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="volunteership-section">
+    <form method="GET" action="{% url 'wfutureAPI:volunteerships'%}" class="search-filter">
+        <input type="text" id="search" name="title_contains" placeholder="Search for jobs...">
+        <div class="filters">
+            <select id="city" name="city">
+                <option value="">City</option>
+                {% for city in cities %}
+                <option value="{{city.name}}">{{city.name}}</option>
+                {% endfor %}
+            </select>
+            <select id="cause" name="cause">
+                <option value="">Cause</option>
+                {% for cause in causes %}
+                <option value="{{cause.name}}">{{cause.name}}</option>
+                {% endfor %}
+            </select>
+            <select id="skill" name="skill">
+                <option value="">Skill</option>
+                {% for skill in skills %}
+                <option value="{{skill.name}}">{{skill.name}}</option>
+                {% endfor %}
+            </select>
+            <div><button class="style-item" id="filter-button" type="submit"><span class="style-in-item">Filter</span></button></div>
+
+        </div>
+    </form>
+    <section class="job-listings">   
+        {% for item in page_obj %}
+        <a href="{% url 'wfutureAPI:volunteership-detail' id=item.id %}" class="job-listing">
+            <img src="{{ item.picture.url }}" alt="{{ item.title }}" class="volunteership-picture" />
+            <div class="volunteership-detail-text-container">
+            <span class="volunteership-title">{{ item.title }}</span>
+            <span class="volunteership-description">{{ item.description }}</span>
+            </div>
+        </a>
+        {% endfor %}
+    </section>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="first-page">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="prev-page">Previous</a>
+            {% endif %}
+    
+            <span class="current-page">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="next-page">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="last-page">Last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</section> 
+<script src="{% static 'js/volunteerships.js' %}"></script>
+{% endblock %}

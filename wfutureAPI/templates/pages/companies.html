@@ -1,0 +1,36 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="organization-section">
+    <div class="organization-container">
+        <h1>Volunteering Organizations</h1>
+        <div id="organization-list">
+            {% for company in page_obj %}
+            <a style="display: block" href="{% url 'wfutureAPI:user-profile' id=company.user.id %}" class="organization">
+                <h2>{{company.name}}</h2>
+                <p style="overflow: hidden;">{{company.description}}</p>
+            </a>
+            {% endfor %}
+        </div>  
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="first-page">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="prev-page">Previous</a>
+                {% endif %}
+        
+                <span class="current-page">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+        
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="next-page">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="last-page">Last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        
+    </div>
+</section>
+<script src="{% static 'js/scripts.js' %}"></script>
+{% endblock %}

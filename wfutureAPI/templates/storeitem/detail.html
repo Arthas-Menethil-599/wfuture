@@ -1,0 +1,21 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block title %}
+{{ storeitem.name }}
+{% endblock %}
+{% block content %}
+<div class="storeitem-detail">
+<img src="{% if storeitem.picture %}{{ storeitem.picture.url }}{% else %}
+{% static "img/no_image.png" %}{% endif %}">
+<div class="storeitem-info">
+    <h1>{{ storeitem.name }}</h1>
+    {{ storeitem.description|linebreaks }}
+    <p class="price">${{ storeitem.points_cost }}</p>
+</div>
+<form action="{% url 'cart:cart_add' storeitem.id %}" method="post">
+    {{cart_storeitem_form}}
+    {% csrf_token %}
+    <input type="submit" value="Add to Cart">
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="application-section">
+    <section class="application-listings">   
+        {% for item in reviews %}
+            <div class="application-item">
+                <div class="application-details">
+                    <span class="volunteership-title">{{ item }}</span>
+                    <div class="state_rating">
+                        <input type="hidden" value="{{ item.rating }}" id="ratingValue">
+                        <label for="star1"></label>
+                        <label for="star2"></label>
+                        <label for="star3"></label>
+                        <label for="star4"></label>
+                        <label for="star5"></label>
+                    </div>
+                    <div class="btn-settings" onclick="toggleReview({{ forloop.counter0 }})">Check Review</div>
+                </div>
+                <div id="review-content-{{ forloop.counter0 }}" class="review-content" style="display: none;">
+                    <p>{{ item.review_content }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+</section>
+
+<script>
+function toggleReview(index) {
+    var contentDiv = document.getElementById('review-content-' + index);
+    if (contentDiv.style.display === "none") {
+        contentDiv.style.display = "block";
+    } else {
+        contentDiv.style.display = "none";
+    }
+}
+</script>
+
+<style>
+.review-content {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+</style>
+
+{% endblock %}

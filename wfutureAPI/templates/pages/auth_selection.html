@@ -1,0 +1,12 @@
+
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="auth-section">
+    <h2>Who are you?</h2>
+    <div style="display: flex; flex-direction: row; justify-content: space-between; width:30%; align-items: center;">
+        <a class="selection_button" href="{% url 'wfutureAPI:signup_company'%}">Company</a>
+        <a class="selection_button" href="{% url 'wfutureAPI:signup_volunteer'%}">Volunteer</a>
+    </div>  
+</section>
+{% endblock %}

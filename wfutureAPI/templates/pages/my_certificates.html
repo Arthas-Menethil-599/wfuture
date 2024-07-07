@@ -1,0 +1,20 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="application-section">
+    {% if certificates %}
+    <section class="application-listings">   
+        {% for item in certificates %}
+            <div class="application-item">
+                <div class="application-details">
+                    <span class="volunteership-title">{{ item }}</span>
+                    <a href="{% url 'wfutureAPI:generate-certificate' id=item.id%}" class="btn-settings">Get Certificate</a>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+    {% else %}
+    <h1> No certificates found </h1>
+    {% endif %}
+</section>
+{% endblock %}

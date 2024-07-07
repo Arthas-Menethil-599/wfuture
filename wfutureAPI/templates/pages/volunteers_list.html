@@ -1,0 +1,61 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="application-section">
+    <section class="application-listings">   
+        {% for item in page_obj %}
+            <div class="application-item">
+                <div class="application-details">
+                    <a href="{% url 'wfutureAPI:user-profile' id=item.volunteer.user.id %}" class="volunteership-title">{{ item.volunteer.name }}</a>
+                    {% if item.status == 'finished' %}
+                    <a href="{% url 'wfutureAPI:give_review' volunteer_id=item.volunteer.id volunteership_id=volunteership.id %}">Give Review</a>
+                    {% endif %}
+                    <div class="application-status-form">
+                        <form method="post" action="{% url 'wfutureAPI:volunteers_for_volunteership' id=volunteership.id %}" id="statusForm">
+                            {% csrf_token %}
+                            <input type="hidden" name="volunteer_volunteership_id" value="{{ item.id }}">
+                            <div class="wrapper">
+                                <div class="option">
+                                    <input id="active" type="radio" name="status" value="active" class="input" {% if item.status == "active" %}checked{% endif %} onchange="this.form.submit()">
+                                    <label for="active" class="btn">
+                                        <span class="span">Active</span>
+                                    </label>
+                                </div>
+                                <div class="option">
+                                    <input id="expelled" type="radio" name="status" value="expelled" class="input" {% if item.status == "expelled" %}checked{% endif %} onchange="this.form.submit()">
+                                    <label for="expelled" class="btn">
+                                        <span class="span">Expelled</span>
+                                    </label>
+                                </div>
+                                <div class="option">
+                                    <input id="finished" type="radio" name="status" value="finished" class="input" {% if item.status == "finished" %}checked{% endif %} onchange="this.form.submit()">
+                                    <label for="finished" class="btn">
+                                        <span class="span">Finished</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="first-page">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="prev-page">Previous</a>
+            {% endif %}
+    
+            <span class="current-page">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="next-page">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="last-page">Last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</section>
+{% endblock %}

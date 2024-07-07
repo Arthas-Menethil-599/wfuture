@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="my-volunteerships-section">
+    {% if page_obj %}
+    <section class="volunteership-listings">
+        {% for item in page_obj %}
+            <a href="{% url 'wfutureAPI:volunteership-detail' id=item.id %}"class="volunteership-item">
+                <div class="volunteership-details">
+                    <img src="{{ item.picture.url }}" alt="{{ item.title }}" class="volunteership-picture" />
+                    <div class="volunteership-detail-text-container">
+                    <span class="volunteership-title">{{ item.title }}</span>
+                    <span class="volunteership-description">{{ item.description }}</span>
+                    </div>
+                </div>
+                
+            </a>
+        {% endfor %}
+        <a href="{% url 'wfutureAPI:create_volunteership'%}"class="add-button-container">
+            <button class="button btn-usual">
+                <span>Add new</span>
+            </button>
+        </a>
+    </section>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="first-page">&laquo; First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="prev-page">Previous</a>
+            {% endif %}
+
+            <span class="current-page">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="next-page">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="last-page">Last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+    {% else %}
+    <h1>No volunteerings found </h1>
+    {% endif %}
+</section>
+{% endblock %}

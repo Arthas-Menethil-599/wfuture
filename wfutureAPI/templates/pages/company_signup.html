@@ -1,0 +1,73 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="auth-section">
+    <h2>Company Signup</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{ user_form.username.label_tag }}
+            {{ user_form.username }}
+            {{ user_form.username.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.email.label_tag }}
+            {{ user_form.email }}
+            {{ user_form.email.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.password1.label_tag }}
+            {{ user_form.password1 }}
+            {{ user_form.password1.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.password2.label_tag }}
+            {{ user_form.password2 }}
+            {{ user_form.password2.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.name.label_tag }}
+            {{ user_form.name }}
+            {{ user_form.name.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.phone_number.label_tag }}
+            {{ user_form.phone_number }}
+            {{ user_form.phone_number.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.description.label_tag }}
+            {{ user_form.description }}
+            {{ user_form.description.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.mission.label_tag }}
+            {{ user_form.mission }}
+            {{ user_form.mission.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.avatar.label_tag }}
+            {{ user_form.avatar }}
+            {{ user_form.avatar.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.country.label_tag }}
+            {{ user_form.country }}
+            {{ user_form.country.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.city.label_tag }}
+            {{ user_form.city }}
+            {{ user_form.city.errors }}
+        </div>
+        <div class="form-group">
+            {{ user_form.address.label_tag }}
+            {{ user_form.address }}
+            {{ user_form.address.errors }}
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'wfutureAPI:login' %}">Login</a></p>
+</section>
+{% endblock %}

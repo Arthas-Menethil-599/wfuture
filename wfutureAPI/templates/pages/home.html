@@ -1,0 +1,128 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<section class="search">
+    <div class="container">
+        <img src="{% static 'img/pictures/Frame12.png'%}" class="image_container" alt="Italian Trulli">
+        <h1>Find your Dream Volunteering</h1>
+        <form>
+            <input type="text" placeholder="Search by keyword, skill, or interest">
+            <button class="button">
+                <span>Search</span>
+              </button>
+        </form>
+        <div class="popular-searches">
+            <a href="#">Communications</a>
+            <a href="#">Education</a>
+            <a href="#">Marketing</a>
+            <a href="#">Management</a>
+            <a href="#">Attorney</a>
+        </div>
+    </div>
+</section>
+<section class="features">
+    <h1>How it works?</h1>
+    <div class="container">
+        <div class="feature">
+            <div class="infeature">
+                <img src="{% static 'img/pictures/search.png' %}" class="image_feature" alt="Italian Trulli">
+                <h2>Find Opportunities</h2>
+                <p>Search for tasks that match your skills and interests.</p>
+            </div>
+        </div>
+        <div class="feature">
+            <div class="infeature">
+                <img src="{% static 'img/pictures/tick.png' %}" class="image_feature" alt="Italian Trulli">
+                <h2>Apply & Volunteer</h2>
+                <p>Apply for tasks and contribute your time.</p>
+            </div>
+        </div>
+        <div class="feature">
+            <div class="infeature">
+                <img src="{% static 'img/pictures/coin.png' %}" class="image_feature" alt="Italian Trulli">
+                <h2>Earn Rewards</h2>
+                <p>Collect points and redeem them for exciting rewards.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="aboutus">
+    <h1>About us</h1>
+    <div class="about_container">
+        <img class="image_about1" src="{% static 'img/pictures/about1.jpg' %}">
+        <div class="about_text_one">
+            <h2>Build a win win future for everyone with us!</h1>
+            <p>wfuture is a platform for nonprofit organizations and volunteers. It is the place where you can find the best match ever for you, and earn a lot of prizes as a bonus. </p>
+        </div>
+    </div>
+    <div class="about_container">
+        <div class="about_text_one">
+            <h2>Dive into volunteer community</h1>
+            <p>Become a part of an ambitious and social responsible community. Remember that every step brings us closer to a wonderful future and never give up. </p>
+        </div>
+        <img class="image_about2" src="{% static 'img/pictures/about2.jpg' %}">
+    </div>
+</section>
+<section class="opportunities">
+    <h1>Featured opportunities</h1>
+    <div class="container">
+        <div class="card__container swiper">
+           <div class="card__content">
+              <div class="swiper-wrapper">
+                <div class="feature swiper-slide">
+                    <div class="infeature">
+                        <img src="{% static 'img/pictures/tick.png' %}" class="image_feature" alt="Italian Trulli">
+                        <h2>Apply & Volunteer</h2>
+                        <p>Apply for tasks and contribute your time.</p>
+                    </div>
+                </div>
+     
+                <div class="feature swiper-slide">
+                    <div class="infeature">
+                        <img src="{% static 'img/pictures/tick.png' %}" class="image_feature" alt="Italian Trulli">
+                        <h2>Apply & Volunteer</h2>
+                        <p>Apply for tasks and contribute your time.</p>
+                    </div>
+                </div>
+     
+                <div class="feature swiper-slide">
+                    <div class="infeature">
+                        <img src="{% static 'img/pictures/tick.png' %}" class="image_feature" alt="Italian Trulli">
+                        <h2>Apply & Volunteer</h2>
+                        <p>Apply for tasks and contribute your time.</p>
+                    </div>
+                </div>
+     
+                <div class="feature swiper-slide">
+                    <div class="infeature">
+                        <img src="{% static 'img/pictures/tick.png' %}" class="image_feature" alt="Italian Trulli">
+                        <h2>Apply & Volunteer</h2>
+                        <p>Apply for tasks and contribute your time.</p>
+                    </div>
+                </div>
+
+                <div class="feature swiper-slide">
+                    <div class="infeature">
+                        <img src="{% static 'img/pictures/tick.png' %}" class="image_feature" alt="Italian Trulli">
+                        <h2>Apply & Volunteer</h2>
+                        <p>Apply for tasks and contribute your time.</p>
+                    </div>
+                </div>
+              </div>
+           </div>
+
+           <!-- Navigation buttons -->
+           <div class="swiper-button-next">
+              <i class="ri-arrow-right-s-line"></i>
+           </div>
+           
+           <div class="swiper-button-prev">
+              <i class="ri-arrow-left-s-line"></i>
+           </div>
+
+           <!-- Pagination -->
+           <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+{% endblock %}

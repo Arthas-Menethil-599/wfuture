@@ -1,0 +1,65 @@
+{% extends "../base.html" %}
+{% load user_type_tags %}
+{% load static %}
+{% block content %}
+<div class="volunteership-detail">
+    <h1>{{ volunteering.title }}</h1>
+    {% if volunteering.picture %}
+    <div class="volunteership-image-container">
+        <img src="{{volunteering.picture.url}}" alt="{{ volunteering.title }}" class="volunteership-image">
+    </div>
+    {% endif %}
+    <p class="description">{{ volunteering.description }}</p>
+    <p class="mission"><strong>Mission:</strong> {{ volunteering.mission_statement }}</p>
+    <p class="location"><strong>Location:</strong> {{ volunteering.location }}</p>
+    <p class="dates">
+        <strong>Start Date:</strong> {{ volunteering.start_date }}<br>
+        <strong>End Date:</strong> {{ volunteering.end_date }}
+    </p>
+    <p class="points"><strong>Points:</strong> {{ volunteering.points }}</p>
+    
+    <div class="skills-causes">
+        <div class="skills">
+            <h2>Skills</h2>
+            <ul>
+                {% for skill in skills %}
+                    <li>{{ skill.name }}</li>
+                {% empty %}
+                    <li>No skills listed.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="causes">
+            <h2>Causes</h2>
+            <ul>
+                {% for cause in causes %}
+                    <li>{{ cause.name }}</li>
+                {% empty %}
+                    <li>No causes listed.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: center;">
+        <h1>{{is_volunteer}}</h1>
+        {% if request.user.is_authenticated and request.user|is_volunteer %}
+            {%if has_applied %}
+                <p>You already applied.</p>
+            {% else%}
+                <form action="{% url 'wfutureAPI:apply_for_volunteering' id=volunteering.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Apply</button>
+                </form>
+            {%endif%}
+        {% endif %}
+    </div>
+    <div style="display: flex; justify-content: center;">
+        {% if request.user.company == volunteering.company %}
+            <a class="btn-settings" href="{% url 'wfutureAPI:volunteership-applicants' id=volunteering.id%}">Applications</a>
+            {% comment %} <a>Edit volunteering</a> {% endcomment %}
+            <a class="btn-settings" href="{% url 'wfutureAPI:volunteers_for_volunteership' id=volunteering.id %}">Volunteers</a>
+        {% endif %}
+    </div>
+</div>
+<script src="{% static 'js/volunteerships.js' %}"></script>
+{% endblock %}

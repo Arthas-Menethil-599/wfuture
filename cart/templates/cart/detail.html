@@ -1,0 +1,60 @@
+{% extends "../base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="cart-section">
+  <h1>Shopping Cart</h1>
+  <p>Your points: {{ request.user.volunteer.points }}</p>
+  <table class="cart">
+    <thead>
+      <tr>
+        <th>Picture</th>
+        <th>StoreItem</th>
+        <th>Update qty</th>
+        <th>Remove</th>
+        <th>Qty</th>
+        <th>Cost for unit</th>
+        <th>Total cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        {% with storeitem=item.storeitem %}
+          <tr>
+            <td>
+              <a href="{{ storeitem.get_absolute_url }}">
+                <img src="{% if storeitem.picture %}{{ storeitem.picture.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+              </a>
+            </td>
+            <td>{{ storeitem.name }}</td>
+            <td>
+              <form action="{% url 'cart:cart_add' storeitem.id %}" method="post">
+                {{ item.update_quantity_form.quantity }}
+                {{ item.update_quantity_form.update }}
+                <input type="submit" value="Update">
+                {% csrf_token %}
+              </form>
+            </td>
+            <td><a href="{% url 'cart:cart_remove' storeitem.id %}">Remove</a></td>
+            <td>
+              {{ item.quantity }}
+            </td>
+            <td class="num">${{ item.points_cost }}</td>
+            <td class="num">${{ item.total_price }}</td>
+          </tr>
+        {% endwith %}
+      {% endfor %}
+      <tr class="total">
+        <td>Total</td>
+        <td colspan="4"></td>
+        <td class="num">${{ cart.get_total_price }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-right">
+    <a href="{% url 'cart:transaction_history' %}" class="button light">View history</a>
+    <a href="{% url 'wfutureAPI:coinstore' %}" class="button light">To coinstore</a>
+    <a href="{% url 'cart:submit_order' %}" class="button">Submit order</a>
+  </p>
+</section>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+    <section class="user_profile">
+        <div class="profile-container">
+            <div class="profile-header">
+              <div class="company-profile-avatar">
+                <img src="{% if company.avatar %} {{company.avatar.url}} {% else %} https://via.placeholder.com/150 {% endif %}" alt="User Avatar">
+              </div>
+              <div class="profile-info">
+                <h1>{{company.name}}</h1>
+                <p>Contact: {{company.phone_number}}</p>
+                <p>Location: {{company.location}}</p>
+              </div>
+            </div>
+            
+            <div class="profile-content">
+              <div class="description-section">
+                <h2>Description</h2>
+                <p>{{company.description}}</p>
+              </div>
+
+              <div class="mission-section">
+                <h2>Mission Statement</h2>
+                <p>{{company.mission}}</p>
+              </div>
+
+              <div class="settings-section">
+                <h2>Settings</h2>
+                <div class="settings-subsection">
+                <button class="btn-settings">Edit Profile</button>
+                <button class="btn-settings">Change Password</button>
+                <button class="btn-settings">Active Volunteerships</button>
+                </div>
+            </div>
+            </div>
+          </div>
+          
+    </section> 
+{% endblock %}
